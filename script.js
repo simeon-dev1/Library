@@ -35,31 +35,32 @@ cancelBtn.addEventListener('click', closeModal);
 
 
 //INITIAL BOOK SHELF ARRAY
-//let myLibrary = []
-let myLibrary = [
-];
+let myLibrary = [];
 
 
 
-//  CONSTRUCTORS  
-//1. NEW BOOK CONSTRUCTOR
-function Book(title, author = "unknown", pageNumber = 0, haveRead = false, content = "") {
+// 1. CONSTRUCTORS  
+// NEW BOOK CONSTRUCTOR
+class Book {
+
 	this.id = crypto.randomUUID()
 	this.created_at = new Date().toLocaleDateString()
-	this.title = title;
-	this.author = author;
-	this["No of pages"] = pageNumber;
-	this["has been read"] = haveRead ? true : false;
-}
-//CONFIGURING BOOK CONSTRUCTOR PROTOTYPE
-(function configureBookProtoype() {
-	Book.prototype.info = function() {
+
+	constructor(title, author = "unknown", pageNumber = 0, haveRead = false, content = "") {
+		this.title = title;
+		this.author = author;
+		this["No of pages"] = pageNumber;
+		this["has been read"] = haveRead ? true : false;
+	}
+
+	info() {
 		let endPhrase = (this["has been read"] === true) ? ", has been read":
 						(this["has been read"] === false) ? ", not read yet" :
 						".";
-		return `${this.title} by ${this.author}, ${this["No of pages"]} pages${endPhrase}`
+		return `${this.title} by ${this.author}, ${this["No of pages"]} pages${endPhrase}`;
 	}
-	Book.prototype.checkReadStatus = function() {
+
+	checkReadStatus() {		
 		if (this["has been read"] === true) {
 			return "Read: ✓"
 		}
@@ -67,11 +68,7 @@ function Book(title, author = "unknown", pageNumber = 0, haveRead = false, conte
 			return "Read: X"
 		}
 	}
-} )()
-
-//1c. Function for checking read status on book
-
-
+}
 
 //2. DYNAMIC LOADING OF BOOKS TO FRONTEND
 function displayBooks() {
